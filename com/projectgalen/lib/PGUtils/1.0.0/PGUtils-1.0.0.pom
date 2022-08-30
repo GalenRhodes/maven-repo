@@ -10,7 +10,7 @@
 
     <name>Project Galen Base Utilities</name>
     <description>Project Galen Base Utilities</description>
-    <url>https://github.com/GalenRhodes/maven-repo</url>
+    <url>https://github.com/GalenRhodes/${project.artifactId}</url>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -52,9 +52,9 @@
     </distributionManagement>
 
     <scm>
-        <url>https://github.com/GalenRhodes/maven-repo</url>
-        <developerConnection>scm:git:git@github.com:jGalenRhodes/maven-repo.git</developerConnection>
-        <connection>scm:git:https://github.com/GalenRhodes/maven-repo.git</connection>
+        <url>https://github.com/GalenRhodes/${project.artifactId}</url>
+        <developerConnection>scm:git:git@github.com:jGalenRhodes/${project.artifactId}.git</developerConnection>
+        <connection>scm:git:https://github.com/GalenRhodes/${project.artifactId}.git</connection>
     </scm>
 
     <dependencies>
@@ -73,29 +73,6 @@
         <defaultGoal>package</defaultGoal>
 
         <plugins>
-            <!-- <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <groupId>org.apache.maven.plugins</groupId>
-                <version>3.2.0</version>
-                <configuration>
-                    <failOnError>false</failOnError>
-                    <skip>false</skip>
-                    <filesets>
-                        <fileset>
-                            <directory>${project.build.outputDirectory}</directory>
-                        </fileset>
-                    </filesets>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>clean</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin> -->
 
             <plugin>
                 <artifactId>maven-deploy-plugin</artifactId>
@@ -127,10 +104,14 @@
                 <artifactId>site-maven-plugin</artifactId>
                 <version>0.12</version>
                 <configuration>
-                    <message>Maven artifacts for ${project.version}</message>
+                    <message>Maven artifacts for ${project.artifactId}-${project.version}</message>
                     <outputDirectory>${project.build.directory}/mvn-artifact</outputDirectory>
                     <noJekyll>true</noJekyll>
                     <merge>true</merge>
+                    <branch>refs/heads/main</branch>
+                    <repositoryName>maven-repo</repositoryName>
+                    <repositoryOwner>GalenRhodes</repositoryOwner>
+                    <server>github</server>
                 </configuration>
                 <executions>
                     <execution>
