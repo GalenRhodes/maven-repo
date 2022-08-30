@@ -53,7 +53,7 @@
 
     <scm>
         <url>https://github.com/GalenRhodes/${project.artifactId}</url>
-        <developerConnection>scm:git:git@github.com:jGalenRhodes/${project.artifactId}.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:GalenRhodes/${project.artifactId}.git</developerConnection>
         <connection>scm:git:https://github.com/GalenRhodes/${project.artifactId}.git</connection>
     </scm>
 
