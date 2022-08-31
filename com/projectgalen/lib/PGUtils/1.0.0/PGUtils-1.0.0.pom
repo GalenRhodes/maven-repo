@@ -8,18 +8,19 @@
     <artifactId>PGUtils</artifactId>
     <version>1.0.0</version>
 
-    <name>Project Galen Base Utilities</name>
-    <description>Project Galen Base Utilities</description>
-    <url>https://github.com/GalenRhodes/${project.artifactId}</url>
-
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <github.global.server>github</github.global.server>
+        <github.owner>GalenRhodes</github.owner>
+        <github.mvn.repo>maven-repo</github.mvn.repo>
     </properties>
 
+    <name>Project Galen Base Utilities</name>
+    <description>Project Galen Base Utilities</description>
+    <url>https://github.com/${github.owner}/${project.artifactId}</url>
 
     <developers>
         <developer>
@@ -52,9 +53,9 @@
     </distributionManagement>
 
     <scm>
-        <url>https://github.com/GalenRhodes/${project.artifactId}</url>
-        <developerConnection>scm:git:git@github.com:GalenRhodes/${project.artifactId}.git</developerConnection>
-        <connection>scm:git:https://github.com/GalenRhodes/${project.artifactId}.git</connection>
+        <url>https://github.com/${github.owner}/${project.artifactId}</url>
+        <developerConnection>scm:git:git@github.com:${github.owner}/${project.artifactId}.git</developerConnection>
+        <connection>scm:git:https://github.com/${github.owner}/${project.artifactId}.git</connection>
     </scm>
 
     <dependencies>
@@ -110,8 +111,8 @@
                     <noJekyll>true</noJekyll>
                     <merge>true</merge>
                     <branch>refs/heads/main</branch>
-                    <repositoryName>maven-repo</repositoryName>
-                    <repositoryOwner>GalenRhodes</repositoryOwner>
+                    <repositoryName>${github.mvn.repo}</repositoryName>
+                    <repositoryOwner>${github.owner}</repositoryOwner>
                     <server>github</server>
                 </configuration>
                 <executions>
