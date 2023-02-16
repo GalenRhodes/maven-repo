@@ -19,7 +19,7 @@
     </properties>
 
     <name>Project Galen Base Utilities</name>
-    <description>Project Galen Base Utilities</description>
+    <description>${project.name}</description>
     <url>https://github.com/${github.owner}/${project.artifactId}</url>
 
     <developers>
@@ -59,7 +59,6 @@
     </scm>
 
     <dependencies>
-
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
@@ -77,7 +76,6 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.13.4.1</version>
         </dependency>
-
     </dependencies>
 
     <packaging>jar</packaging>
@@ -86,21 +84,6 @@
         <defaultGoal>package</defaultGoal>
 
         <plugins>
-            <!--
-            <plugin>
-                <groupId>se.eris</groupId>
-                <artifactId>notnull-instrumenter-maven-plugin</artifactId>
-                <version>1.1.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>instrument</goal>
-                            <goal>tests-instrument</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
@@ -139,7 +122,7 @@
                     <branch>refs/heads/main</branch>
                     <repositoryName>${github.mvn.repo}</repositoryName>
                     <repositoryOwner>${github.owner}</repositoryOwner>
-                    <server>github</server>
+                    <server>${github.global.server}</server>
                 </configuration>
                 <executions>
                     <execution>
