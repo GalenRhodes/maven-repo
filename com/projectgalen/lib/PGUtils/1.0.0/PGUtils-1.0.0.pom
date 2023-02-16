@@ -16,6 +16,7 @@
         <github.global.server>github</github.global.server>
         <github.owner>GalenRhodes</github.owner>
         <github.mvn.repo>maven-repo</github.mvn.repo>
+        <project.build.jars.directory>${project.build.directory}/jars</project.build.jars.directory>
     </properties>
 
     <name>Project Galen Base Utilities</name>
@@ -86,6 +87,27 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <configuration>
+                            <target>
+                                <java jar="${project.basedir}/utils/PropertiesToXML-1.0.0.jar" fork="true">
+                                    <arg value="${project.basedir}/src/main/resources/com/projectgalen/lib/utils/pg_messages.properties"/>
+                                </java>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
@@ -93,6 +115,24 @@
                         internal.repo::file://${project.build.directory}/mvn-artifact
                     </altDeploymentRepository>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.jars.directory}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
