@@ -65,18 +65,6 @@
             <artifactId>annotations</artifactId>
             <version>23.0.0</version>
         </dependency>
-
-        <!-- <dependency>
-            <groupId>org.hibernate.orm</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>6.0.2.Final</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.13.4.1</version>
-        </dependency> -->
     </dependencies>
 
     <packaging>jar</packaging>
@@ -116,24 +104,6 @@
                     </altDeploymentRepository>
                 </configuration>
             </plugin>
-
-            <!-- <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.2.0</version>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.jars.directory}</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin> -->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
