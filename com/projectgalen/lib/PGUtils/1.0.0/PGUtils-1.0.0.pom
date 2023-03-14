@@ -33,6 +33,10 @@
 
     <repositories>
         <repository>
+            <id>${github.owner}</id>
+            <url>https://github.com/${github.owner}/${github.mvn.repo}/raw/main/</url>
+        </repository>
+        <repository>
             <id>central</id>
             <url>https://repo1.maven.org/maven2/</url>
         </repository>
@@ -63,7 +67,7 @@
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>23.0.0</version>
+            <version>23.1.0</version>
         </dependency>
     </dependencies>
 
