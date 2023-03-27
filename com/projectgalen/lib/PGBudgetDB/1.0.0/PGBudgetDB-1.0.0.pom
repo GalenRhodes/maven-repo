@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.projectgalen.lib</groupId>
+    <artifactId>PGBudgetDB</artifactId>
+    <version>1.0.0</version>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <github.global.server>github</github.global.server>
+        <github.owner>GalenRhodes</github.owner>
+        <github.mvn.repo>maven-repo</github.mvn.repo>
+        <project.build.jars.directory>${project.build.directory}/jars</project.build.jars.directory>
+    </properties>
+
+    <name>Project Galen PGBudget Database Classes</name>
+    <description>${project.name}</description>
+    <url>https://github.com/${github.owner}/${project.artifactId}</url>
+
+    <developers>
+        <developer>
+            <id>g.rhodes</id>
+            <name>Galen Rhodes</name>
+            <email>galenrhodes@me.com</email>
+        </developer>
+    </developers>
+
+    <repositories>
+        <repository>
+            <id>${github.owner}</id>
+            <url>https://github.com/${github.owner}/${github.mvn.repo}/raw/main/</url>
+        </repository>
+        <repository>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <distributionManagement>
+        <repository>
+            <id>internal.repo</id>
+            <name>Temporary Staging Repository</name>
+            <url>file://${project.build.directory}/mvn-artifact</url>
+        </repository>
+    </distributionManagement>
+
+    <scm>
+        <url>https://github.com/${github.owner}/${project.artifactId}</url>
+        <developerConnection>scm:git:git@github.com:${github.owner}/${project.artifactId}.git</developerConnection>
+        <connection>scm:git:https://github.com/${github.owner}/${project.artifactId}.git</connection>
+    </scm>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.projectgalen.lib</groupId>
+            <artifactId>PGUtils</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.projectgalen.lib</groupId>
+            <artifactId>JPAUtils</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.projectgalen.lib</groupId>
+            <artifactId>PGCrypto</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>23.1.0</version>
+        </dependency>
+
+        <!--suppress VulnerableLibrariesLocal -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.30</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.13.4.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.0.2.Final</version>
+        </dependency>
+    </dependencies>
+
+    <packaging>jar</packaging>
+
+    <build>
+        <defaultGoal>package</defaultGoal>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <!--                    <execution>-->
+                    <!--                        <phase>compile</phase>-->
+                    <!--                        <configuration>-->
+                    <!--                            <target>-->
+                    <!--                                <java jar="${project.basedir}/utils/MySQL2JPA-1.0.0.jar" fork="true">-->
+                    <!--                                    <arg value="&#45;&#45;config=${project.basedir}/conf/MySQL2JPA_config.json"/>-->
+                    <!--                                </java>-->
+                    <!--                            </target>-->
+                    <!--                        </configuration>-->
+                    <!--                        <goals>-->
+                    <!--                            <goal>run</goal>-->
+                    <!--                        </goals>-->
+                    <!--                    </execution>-->
+                    <execution>
+                        <phase>compile</phase>
+                        <configuration>
+                            <target>
+                                <java jar="${project.basedir}/utils/PropertiesToXML-1.0.0.jar" fork="true">
+                                    <arg value="${project.basedir}/src/main/resources/com/projectgalen/pgbudget/db/converters/ToDaoMessages.properties"/>
+                                    <arg value="${project.basedir}/src/main/resources/com/projectgalen/pgbudget/db/Messages.properties"/>
+                                </java>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <altDeploymentRepository>internal.repo::file://${project.build.directory}/mvn-artifact</altDeploymentRepository>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.12</version>
+                <configuration>
+                    <message>Maven artifacts for ${project.artifactId}-${project.version}</message>
+                    <outputDirectory>${project.build.directory}/mvn-artifact</outputDirectory>
+                    <noJekyll>true</noJekyll>
+                    <merge>true</merge>
+                    <branch>refs/heads/main</branch>
+                    <repositoryName>${github.mvn.repo}</repositoryName>
+                    <repositoryOwner>${github.owner}</repositoryOwner>
+                    <server>${github.global.server}</server>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
