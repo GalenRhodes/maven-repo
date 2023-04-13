@@ -16,7 +16,14 @@
         <github.global.server>github</github.global.server>
         <github.owner>GalenRhodes</github.owner>
         <github.mvn.repo>maven-repo</github.mvn.repo>
-        <project.build.jars.directory>${project.build.directory}/jars</project.build.jars.directory>
+        <project.build.module.src.directory>${project.basedir}/src/main</project.build.module.src.directory>
+        <project.build.resources.directory>${project.build.module.src.directory}/resources</project.build.resources.directory>
+        <project.build.metainf.directory>${project.build.module.src.directory}/META-INF</project.build.metainf.directory>
+        <project.build.jarclasses.directory>${project.build.directory}/jars-classes</project.build.jarclasses.directory>
+        <intellij.version>231.8109.175</intellij.version>
+        <app.base.path>com/projectgalen/lib/utils</app.base.path>
+        <app.base.package>com.projectgalen.lib.utils</app.base.package>
+        <props2xml.jar.path>${project.basedir}/utils/PropertiesToXML-1.0.0.jar</props2xml.jar.path>
     </properties>
 
     <name>Project Galen Base Utilities</name>
@@ -39,6 +46,14 @@
         <repository>
             <id>central</id>
             <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>jetbrains.releases</id>
+            <url>https://www.jetbrains.com/intellij-repository/releases</url>
+        </repository>
+        <repository>
+            <id>jetbrains.3rdparty</id>
+            <url>https://cache-redirector.jetbrains.com/intellij-dependencies</url>
         </repository>
     </repositories>
 
@@ -69,6 +84,18 @@
             <artifactId>annotations</artifactId>
             <version>24.0.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.jetbrains.intellij.java</groupId>
+            <artifactId>java-gui-forms-rt</artifactId>
+            <version>${intellij.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jetbrains.intellij.java</groupId>
+            <artifactId>java-compiler-ant-tasks</artifactId>
+            <version>${intellij.version}</version>
+        </dependency>
     </dependencies>
 
     <packaging>jar</packaging>
@@ -83,12 +110,31 @@
                 <version>3.1.0</version>
                 <executions>
                     <execution>
+                        <id>1</id>
                         <phase>compile</phase>
                         <configuration>
                             <target>
-                                <java jar="${project.basedir}/utils/PropertiesToXML-1.0.0.jar" fork="true">
-                                    <arg value="${project.basedir}/src/main/resources/com/projectgalen/lib/utils/pg_messages.properties"/>
+                                <java jar="${props2xml.jar.path}" fork="true">
+                                    <arg value="${project.build.resources.directory}/${app.base.path}/pg_messages.properties"/>
                                 </java>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>2</id>
+                        <phase>compile</phase>
+                        <configuration>
+                            <target>
+                                <path id="j2sp">
+                                    <pathelement location="${project.build.module.src.directory}/java"/>
+                                </path>
+                                <taskdef name="javac2" classpathref="maven.runtime.classpath" classname="com.intellij.ant.Javac2"/>
+                                <javac2 destdir="${project.build.outputDirectory}" classpathref="maven.compile.classpath" includeantruntime="true">
+                                    <src refid="j2sp"/>
+                                </javac2>
                             </target>
                         </configuration>
                         <goals>
