@@ -16,10 +16,10 @@
         <github.global.server>github</github.global.server>
         <github.owner>GalenRhodes</github.owner>
         <github.mvn.repo>maven-repo</github.mvn.repo>
-        <project.build.module.src.directory>${project.basedir}/src/main</project.build.module.src.directory>
-        <project.build.resources.directory>${project.build.module.src.directory}/resources</project.build.resources.directory>
-        <project.build.metainf.directory>${project.build.module.src.directory}/META-INF</project.build.metainf.directory>
-        <project.build.jarclasses.directory>${project.build.directory}/jars-classes</project.build.jarclasses.directory>
+        <project.build.module.src.dir>${project.basedir}/src/main</project.build.module.src.dir>
+        <project.build.resources.dir>${project.build.module.src.dir}/resources</project.build.resources.dir>
+        <project.build.metainf.dir>${project.build.module.src.dir}/META-INF</project.build.metainf.dir>
+        <project.build.jarclasses.dir>${project.build.directory}/jars-classes</project.build.jarclasses.dir>
         <intellij.version>231.8109.175</intellij.version>
         <app.base.path>com/projectgalen/lib/utils</app.base.path>
         <app.base.package>com.projectgalen.lib.utils</app.base.package>
@@ -114,27 +114,21 @@
                         <phase>compile</phase>
                         <configuration>
                             <target>
-                                <java jar="${props2xml.jar.path}" fork="true">
-                                    <arg value="${project.build.resources.directory}/${app.base.path}/pg_messages.properties"/>
+                                <java jar="${project.basedir}/utils/PropertiesToXML-1.0.0.jar" fork="true">
+                                    <arg value="--src-dir"/>
+                                    <arg value="${project.build.resources.dir}/${app.base.path}"/>
+                                    <arg value="--dest-dir"/>
+                                    <arg value="${project.build.outputDirectory}/${app.base.path}"/>
+                                    <arg value="--"/>
+                                    <arg value="pg_messages.properties"/>
                                 </java>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>2</id>
-                        <phase>compile</phase>
-                        <configuration>
-                            <target>
-                                <path id="j2sp">
-                                    <pathelement location="${project.build.module.src.directory}/java"/>
-                                </path>
+                                <delete quiet="true">
+                                    <fileset dir="${project.build.outputDirectory}/${app.base.path}">
+                                        <include name="**/*.properties"/>
+                                    </fileset>
+                                </delete>
                                 <taskdef name="javac2" classpathref="maven.runtime.classpath" classname="com.intellij.ant.Javac2"/>
-                                <javac2 destdir="${project.build.outputDirectory}" classpathref="maven.compile.classpath" includeantruntime="true">
-                                    <src refid="j2sp"/>
-                                </javac2>
+                                <javac2 srcdir="${project.build.module.src.dir}/java" destdir="${project.build.outputDirectory}" classpathref="maven.compile.classpath" includeantruntime="true"/>
                             </target>
                         </configuration>
                         <goals>
