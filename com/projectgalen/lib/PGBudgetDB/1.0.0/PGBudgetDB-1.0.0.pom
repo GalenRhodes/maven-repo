@@ -19,7 +19,6 @@
         <project.build.module.src.directory>${project.basedir}/src/main</project.build.module.src.directory>
         <project.build.resources.directory>${project.build.module.src.directory}/resources</project.build.resources.directory>
         <project.build.metainf.directory>${project.build.module.src.directory}/META-INF</project.build.metainf.directory>
-        <project.build.jarclasses.directory>${project.build.directory}/jars-classes</project.build.jarclasses.directory>
         <intellij.version>231.8109.175</intellij.version>
         <app.base.path>com/projectgalen/pgbudget/db</app.base.path>
         <app.base.package>com.projectgalen.pgbudget.db</app.base.package>
@@ -162,20 +161,20 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <phase>package</phase>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-source-plugin</artifactId>-->
+<!--                <version>3.1.0</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>attach-sources</id>-->
+<!--                        <goals>-->
+<!--                            <goal>jar</goal>-->
+<!--                        </goals>-->
+<!--                        <phase>package</phase>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
 
             <plugin>
                 <groupId>com.github.github</groupId>
