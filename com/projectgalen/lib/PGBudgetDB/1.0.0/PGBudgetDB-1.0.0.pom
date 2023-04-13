@@ -16,7 +16,14 @@
         <github.global.server>github</github.global.server>
         <github.owner>GalenRhodes</github.owner>
         <github.mvn.repo>maven-repo</github.mvn.repo>
-        <project.build.jars.directory>${project.build.directory}/jars</project.build.jars.directory>
+        <project.build.module.src.directory>${project.basedir}/src/main</project.build.module.src.directory>
+        <project.build.resources.directory>${project.build.module.src.directory}/resources</project.build.resources.directory>
+        <project.build.metainf.directory>${project.build.module.src.directory}/META-INF</project.build.metainf.directory>
+        <project.build.jarclasses.directory>${project.build.directory}/jars-classes</project.build.jarclasses.directory>
+        <intellij.version>231.8109.175</intellij.version>
+        <app.base.path>com/projectgalen/pgbudget/db</app.base.path>
+        <app.base.package>com.projectgalen.pgbudget.db</app.base.package>
+        <props2xml.jar.path>${project.basedir}/utils/PropertiesToXML-1.0.0.jar</props2xml.jar.path>
     </properties>
 
     <name>Project Galen PGBudget Database Classes</name>
@@ -39,6 +46,14 @@
         <repository>
             <id>central</id>
             <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>jetbrains.releases</id>
+            <url>https://www.jetbrains.com/intellij-repository/releases</url>
+        </repository>
+        <repository>
+            <id>jetbrains.3rdparty</id>
+            <url>https://cache-redirector.jetbrains.com/intellij-dependencies</url>
         </repository>
     </repositories>
 
@@ -66,26 +81,8 @@
     <dependencies>
         <dependency>
             <groupId>com.projectgalen.lib</groupId>
-            <artifactId>PGUtils</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.projectgalen.lib</groupId>
             <artifactId>JPAUtils</artifactId>
             <version>1.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.projectgalen.lib</groupId>
-            <artifactId>PGCrypto</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>24.0.0</version>
         </dependency>
 
         <!--suppress VulnerableLibrariesLocal -->
@@ -120,27 +117,33 @@
                 <artifactId>maven-antrun-plugin</artifactId>
                 <version>3.1.0</version>
                 <executions>
-                    <!--                    <execution>-->
-                    <!--                        <phase>compile</phase>-->
-                    <!--                        <configuration>-->
-                    <!--                            <target>-->
-                    <!--                                <java jar="${project.basedir}/utils/MySQL2JPA-1.0.0.jar" fork="true">-->
-                    <!--                                    <arg value="&#45;&#45;config=${project.basedir}/conf/MySQL2JPA_config.json"/>-->
-                    <!--                                </java>-->
-                    <!--                            </target>-->
-                    <!--                        </configuration>-->
-                    <!--                        <goals>-->
-                    <!--                            <goal>run</goal>-->
-                    <!--                        </goals>-->
-                    <!--                    </execution>-->
                     <execution>
+                        <id>1</id>
                         <phase>compile</phase>
                         <configuration>
                             <target>
-                                <java jar="${project.basedir}/utils/PropertiesToXML-1.0.0.jar" fork="true">
-                                    <arg value="${project.basedir}/src/main/resources/com/projectgalen/pgbudget/db/converters/ToDaoMessages.properties"/>
-                                    <arg value="${project.basedir}/src/main/resources/com/projectgalen/pgbudget/db/Messages.properties"/>
+                                <java jar="${props2xml.jar.path}" fork="true">
+                                    <arg value="${project.build.resources.directory}/${app.base.path}/converters/ToDaoMessages.properties"/>
+                                    <arg value="${project.build.resources.directory}/${app.base.path}/Messages.properties"/>
                                 </java>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>2</id>
+                        <phase>compile</phase>
+                        <configuration>
+                            <target>
+                                <path id="j2sp">
+                                    <pathelement location="${project.build.module.src.directory}/java"/>
+                                </path>
+                                <taskdef name="javac2" classpathref="maven.runtime.classpath" classname="com.intellij.ant.Javac2"/>
+                                <javac2 destdir="${project.build.outputDirectory}" classpathref="maven.compile.classpath" includeantruntime="true">
+                                    <src refid="j2sp"/>
+                                </javac2>
                             </target>
                         </configuration>
                         <goals>
