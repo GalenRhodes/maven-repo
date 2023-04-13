@@ -127,7 +127,7 @@
                                     <arg value="--dest-dir"/>
                                     <arg value="${project.build.outputDirectory}/${app.base.path}"/>
                                     <arg value="--"/>
-                                    <arg value="pg_messages.properties"/>
+                                    <arg value="Messages.properties"/>
                                     <arg value="converters/ToDaoMessages.properties"/>
                                 </java>
                                 <delete quiet="true">
