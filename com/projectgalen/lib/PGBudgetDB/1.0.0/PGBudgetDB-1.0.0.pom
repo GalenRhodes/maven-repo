@@ -127,7 +127,6 @@
                                     <arg value="${project.build.outputDirectory}/${app.base.path}"/>
                                     <arg value="--"/>
                                     <arg value="Messages.properties"/>
-                                    <arg value="converters/ToDaoMessages.properties"/>
                                 </java>
                                 <delete quiet="true">
                                     <fileset dir="${project.build.outputDirectory}/${app.base.path}">
