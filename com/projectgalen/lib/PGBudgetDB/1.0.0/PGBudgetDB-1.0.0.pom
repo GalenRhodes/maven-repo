@@ -123,7 +123,7 @@
     <packaging>jar</packaging>
 
     <build>
-        <defaultGoal>package</defaultGoal>
+        <defaultGoal>deploy</defaultGoal>
 
         <plugins>
             <plugin>
