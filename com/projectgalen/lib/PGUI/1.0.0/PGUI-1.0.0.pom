@@ -85,22 +85,18 @@
             <version>1.0.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.formdev/flatlaf -->
         <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>24.0.0</version>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.1.1</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.formdev/flatlaf-extras -->
         <dependency>
-            <groupId>com.jetbrains.intellij.java</groupId>
-            <artifactId>java-gui-forms-rt</artifactId>
-            <version>${intellij.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.jetbrains.intellij.java</groupId>
-            <artifactId>java-compiler-ant-tasks</artifactId>
-            <version>${intellij.version}</version>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-extras</artifactId>
+            <version>3.1.1</version>
         </dependency>
     </dependencies>
 
