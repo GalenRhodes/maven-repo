@@ -21,8 +21,8 @@
         <project.build.metainf.dir>${project.build.module.src.dir}/META-INF</project.build.metainf.dir>
         <project.build.jarclasses.dir>${project.build.directory}/jars-classes</project.build.jarclasses.dir>
         <intellij.version>231.8109.175</intellij.version>
-        <app.base.path>com/projectgalen/lib/utils</app.base.path>
-        <app.base.package>com.projectgalen.lib.utils</app.base.package>
+        <app.base.path>com/projectgalen/lib/ui</app.base.path>
+        <app.base.package>com.projectgalen.lib.ui</app.base.package>
         <props2xml.jar.path>${project.basedir}/utils/PropertiesToXML-1.0.0.jar</props2xml.jar.path>
     </properties>
 
