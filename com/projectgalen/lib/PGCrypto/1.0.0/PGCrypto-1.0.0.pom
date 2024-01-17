@@ -9,18 +9,19 @@
     <version>1.0.0</version>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <intellij.version>232.8660.185</intellij.version>
+        <intellij.annotations.version>24.0.1</intellij.annotations.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <github.global.server>github</github.global.server>
         <github.owner>GalenRhodes</github.owner>
         <github.mvn.repo>maven-repo</github.mvn.repo>
-        <project.build.module.src.directory>${project.basedir}/src/main</project.build.module.src.directory>
-        <project.build.resources.directory>${project.build.module.src.directory}/resources</project.build.resources.directory>
-        <project.build.metainf.directory>${project.build.module.src.directory}/META-INF</project.build.metainf.directory>
-        <project.build.jarclasses.directory>${project.build.directory}/jars-classes</project.build.jarclasses.directory>
-        <intellij.version>231.8109.175</intellij.version>
+        <project.build.module.src.dir>${project.basedir}/src/main</project.build.module.src.dir>
+        <project.build.resources.dir>${project.build.module.src.dir}/resources</project.build.resources.dir>
+        <project.build.metainf.dir>${project.build.module.src.dir}/META-INF</project.build.metainf.dir>
+        <project.build.jarclasses.dir>${project.build.directory}/jars-classes</project.build.jarclasses.dir>
         <app.base.path>com/projectgalen/lib/crypto</app.base.path>
         <app.base.package>com.projectgalen.lib.crypto</app.base.package>
         <props2xml.jar.path>${project.basedir}/utils/PropertiesToXML-1.0.0.jar</props2xml.jar.path>
@@ -40,7 +41,7 @@
 
     <repositories>
         <repository>
-            <id>GalenRhodes</id>
+            <id>${github.owner}</id>
             <url>https://github.com/${github.owner}/${github.mvn.repo}/raw/main/</url>
         </repository>
         <repository>
@@ -88,32 +89,50 @@
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcpg-jdk18on</artifactId>
-            <version>1.71.1</version>
+            <version>1.77</version>
         </dependency>
 
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcmail-jdk18on</artifactId>
-            <version>1.71.1</version>
+            <version>1.77</version>
         </dependency>
 
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-ext-jdk18on</artifactId>
-            <version>1.71</version>
+            <version>1.77</version>
         </dependency>
 
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bctls-jdk18on</artifactId>
-            <version>1.71.1</version>
+            <version>1.77</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${intellij.annotations.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jetbrains.intellij.java</groupId>
+            <artifactId>java-gui-forms-rt</artifactId>
+            <version>${intellij.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jetbrains.intellij.java</groupId>
+            <artifactId>java-compiler-ant-tasks</artifactId>
+            <version>${intellij.version}</version>
         </dependency>
     </dependencies>
 
     <packaging>jar</packaging>
 
     <build>
-        <defaultGoal>package</defaultGoal>
+        <defaultGoal>deploy</defaultGoal>
 
         <plugins>
             <plugin>
@@ -127,26 +146,20 @@
                         <configuration>
                             <target>
                                 <java jar="${props2xml.jar.path}" fork="true">
-                                    <arg value="${project.build.resources.directory}/${app.base.path}/crypto_messages.properties"/>
+                                    <arg value="--src-dir"/>
+                                    <arg value="${project.build.resources.dir}/${app.base.path}"/>
+                                    <arg value="--dest-dir"/>
+                                    <arg value="${project.build.outputDirectory}/${app.base.path}"/>
+                                    <arg value="--"/>
+                                    <arg value="crypto_messages.properties"/>
                                 </java>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>2</id>
-                        <phase>compile</phase>
-                        <configuration>
-                            <target>
-                                <path id="j2sp">
-                                    <pathelement location="${project.build.module.src.directory}/java"/>
-                                </path>
+                                <delete quiet="true">
+                                    <fileset dir="${project.build.outputDirectory}/${app.base.path}">
+                                        <include name="**/*.properties"/>
+                                    </fileset>
+                                </delete>
                                 <taskdef name="javac2" classpathref="maven.runtime.classpath" classname="com.intellij.ant.Javac2"/>
-                                <javac2 destdir="${project.build.outputDirectory}" classpathref="maven.compile.classpath" includeantruntime="true">
-                                    <src refid="j2sp"/>
-                                </javac2>
+                                <javac2 srcdir="${project.build.module.src.dir}/java" destdir="${project.build.outputDirectory}" classpathref="maven.compile.classpath" includeantruntime="true"/>
                             </target>
                         </configuration>
                         <goals>
@@ -169,8 +182,20 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.3.0</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -194,14 +219,15 @@
                     <branch>refs/heads/main</branch>
                     <repositoryName>${github.mvn.repo}</repositoryName>
                     <repositoryOwner>${github.owner}</repositoryOwner>
-                    <server>github</server>
+                    <server>${github.global.server}</server>
                 </configuration>
                 <executions>
                     <execution>
                         <goals>
                             <goal>site</goal>
                         </goals>
-                        <phase>deploy</phase>
+<!--                        <phase>site</phase>-->
+                         <phase>deploy</phase>
                     </execution>
                 </executions>
             </plugin>
