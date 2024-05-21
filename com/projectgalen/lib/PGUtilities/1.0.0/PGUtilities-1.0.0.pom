@@ -191,7 +191,7 @@
                     <message>Maven artifacts for ${project.artifactId}-${project.version}</message>
                     <outputDirectory>${project.build.directory}/mvn-artifact</outputDirectory>
                     <noJekyll>true</noJekyll>
-                    <merge>false</merge>
+                    <merge>true</merge>
                     <branch>refs/heads/main</branch>
                     <repositoryName>${github.mvn.repo}</repositoryName>
                     <repositoryOwner>${github.owner}</repositoryOwner>
