@@ -94,19 +94,15 @@
             <groupId>com.jetbrains.intellij.java</groupId>
             <artifactId>java-gui-forms-rt</artifactId>
             <version>${intellij.version}</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.jetbrains.intellij.java</groupId>
             <artifactId>java-compiler-ant-tasks</artifactId>
             <version>${intellij.version}</version>
+            <scope>compile</scope>
         </dependency>
-
-        <!--        <dependency>-->
-        <!--            <groupId>com.apple</groupId>-->
-        <!--            <artifactId>applejavaextensions</artifactId>-->
-        <!--            <version>1.4</version>-->
-        <!--        </dependency>-->
     </dependencies>
 
     <packaging>jar</packaging>
