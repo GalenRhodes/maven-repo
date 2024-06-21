@@ -157,12 +157,6 @@
                     <failOnWarnings>false</failOnWarnings>
                     <quiet>true</quiet>
                 </configuration>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                        </reports>
-                    </reportSet>
-                </reportSets>
             </plugin>
         </plugins>
     </reporting>
