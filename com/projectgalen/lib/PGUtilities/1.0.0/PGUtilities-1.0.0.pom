@@ -143,24 +143,6 @@
         </dependency>
     </dependencies>
 
-    <reporting>
-        <excludeDefaults>true</excludeDefaults>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.7.0</version>
-                <configuration>
-                    <show>public</show>
-                    <detectJavaApiLink>true</detectJavaApiLink>
-                    <detectLinks>true</detectLinks>
-                    <failOnWarnings>false</failOnWarnings>
-                    <quiet>true</quiet>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
-
     <packaging>jar</packaging>
 
     <build>
@@ -258,6 +240,19 @@
                         <!-- <phase>deploy</phase> -->
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <show>public</show>
+                    <detectJavaApiLink>true</detectJavaApiLink>
+                    <detectLinks>true</detectLinks>
+                    <failOnWarnings>false</failOnWarnings>
+                    <quiet>true</quiet>
+                </configuration>
             </plugin>
         </plugins>
     </build>
