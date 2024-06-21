@@ -259,6 +259,9 @@
                             <detectLinks>true</detectLinks>
                             <failOnWarnings>false</failOnWarnings>
                             <quiet>true</quiet>
+                            <links>
+                                <link>https://downloads.bouncycastle.org/java/docs/bcprov-jdk18on-javadoc/</link>
+                            </links>
                         </configuration>
                     </execution>
                 </executions>
